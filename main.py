@@ -37,18 +37,13 @@ def main():
     phi = (p - 1) * (q - 1)
     print("\nBônus: calcular o expoente privado d.")
     print(f"φ(n) = ({p} - 1) × ({q} - 1) = {phi}.")
-
-    if phi <= 2:
-        print("Para este módulo, não existe um inteiro e entre 1 e φ(n), excluindo os extremos.")
-        return
-
     print("O expoente público e é o segundo número da chave pública (n, e).")
-    print(f"Escolha um inteiro de 2 a {phi - 1} que só tenha o divisor 1 em comum com {phi}.")
+    print(f"Escolha um inteiro de 2 a {n - 1} que só tenha o divisor 1 em comum com {phi}.")
 
     while True:
         entrada = input(
-            "Qual número você quer usar como expoente público? "
-            "(Enter para encerrar): "
+            "Digite o valor numérico do expoente público "
+            "(ou pressione Enter para encerrar): "
         ).strip()
 
         if not entrada:
@@ -60,8 +55,8 @@ def main():
             print("Digite apenas o número que representa e.")
             continue
 
-        if not 1 < e < phi:
-            print(f"Escolha um número entre 2 e {phi - 1}.")
+        if not 1 < e < n:
+            print(f"Escolha um número entre 2 e {n - 1}.")
             continue
 
         divisor_comum = gcd(e, phi)
@@ -72,10 +67,11 @@ def main():
         break
 
     for d in range(1, phi):
-        if (e * d) % phi == 1:
+        resto = (e * d) % phi
+        if resto == 1:
             print(f"Expoente privado: d = {d}")
             print(f"Chave privada (n, d) = ({n}, {d})")
-            print(f"Conferência: ({e} × {d}) % {phi} = 1")
+            print(f"Conferência: ({e} × {d}) % {phi} = {resto}")
             return
 
 
